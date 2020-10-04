@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, PasswordField
 from wtforms.validators import DataRequired, Length, EqualTo, Email
 from wtforms.fields.html5 import EmailField
+from flask_wtf.file import FileField, FileRequired
 
 
 class QuestionForm(FlaskForm):
@@ -29,4 +30,8 @@ class UserLoginForm(FlaskForm):
 
 
 class CommentForm(FlaskForm):
-    content = TextAreaField('내용', validators=[DataRequired()])
+    content = TextAreaField('내용', validators=[DataRequired('내용은 필수입력 항목입니다.')])
+
+
+class FileForm(FlaskForm):
+    file = FileField('파일', validators=[FileRequired('파일 선택을 하지 않으셨습니다.')])
