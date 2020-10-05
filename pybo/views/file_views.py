@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, url_for, g, flash, jsonify, request
+from flask import Blueprint, render_template, request, url_for, g, flash, jsonify
 import flask_excel as excel
 import pandas as pd
 
@@ -13,8 +13,9 @@ bp = Blueprint('file', __name__, url_prefix='/file')
 def upload():
     form = FileForm()
     if request.method == 'POST' and form.validate_on_submit():
-        # return jsonify({"result": request.get_array('file')})
-        f = request.files['file']
+        upload_files = request.files.getlist('file')
+        f = upload_files[0]
+        # f = request.files['file']
         data_xls = pd.read_excel(f)
         return data_xls.to_html()
 
